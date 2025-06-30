@@ -1,6 +1,10 @@
 import React, { useState } from 'react'
 import { Search, Download, Trash2, Edit3, Check, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { FadeIn } from '@/components/ui/fade-in'
+import { SlideIn } from '@/components/ui/slide-in'
+import { StaggerContainer } from '@/components/ui/stagger-container'
+import { MagneticEffect } from '@/components/ui/magnetic-effect'
 import { Calculation, useCalculationStore } from '@/lib/store'
 import { formatTimestamp, downloadAsJSON } from '@/lib/utils'
 
@@ -54,13 +58,19 @@ export function CalculationHistory({ calculations }: CalculationHistoryProps) {
   if (calculations.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center h-full p-6 text-center">
-        <div className="w-20 h-20 bg-engineering-100 rounded-full flex items-center justify-center mb-4">
-          <Search className="w-10 h-10 text-engineering-400" />
-        </div>
-        <h2 className="text-xl font-semibold text-engineering-900 mb-2">No Calculations Yet</h2>
-        <p className="text-engineering-600 mb-6">
-          Start capturing calculations with the camera to see them here.
-        </p>
+        <FadeIn delay={0.2}>
+          <div className="w-20 h-20 bg-engineering-100 rounded-full flex items-center justify-center mb-4">
+            <Search className="w-10 h-10 text-engineering-400" />
+          </div>
+        </FadeIn>
+        <FadeIn delay={0.4} direction="up">
+          <h2 className="text-xl font-semibold text-engineering-900 mb-2">No Calculations Yet</h2>
+        </FadeIn>
+        <FadeIn delay={0.6} direction="up">
+          <p className="text-engineering-600 mb-6">
+            Start capturing calculations with the camera to see them here.
+          </p>
+        </FadeIn>
       </div>
     )
   }
@@ -105,12 +115,15 @@ export function CalculationHistory({ calculations }: CalculationHistoryProps) {
 
       {/* Calculations List */}
       <div className="flex-1 overflow-y-auto">
-        <div className="space-y-3 p-4">
-          {filteredCalculations.map((calculation) => (
-            <div 
-              key={calculation.id} 
-              className="bg-white/80 backdrop-blur-sm rounded-lg border border-engineering-200 overflow-hidden"
-            >
+        <StaggerContainer delay={0.2} staggerDelay={0.1}>
+          <div className="space-y-3 p-4">
+            {filteredCalculations.map((calculation, index) => (
+              <SlideIn 
+                key={calculation.id} 
+                delay={index * 0.05}
+                direction="up"
+                className="bg-white/80 backdrop-blur-sm rounded-lg border border-engineering-200 overflow-hidden hover:shadow-lg transition-shadow duration-300"
+              >
               <div className="p-4">
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex-1">
@@ -137,24 +150,28 @@ export function CalculationHistory({ calculations }: CalculationHistoryProps) {
                     </div>
                   </div>
                   
-                  <div className="flex space-x-1">
-                    <Button
-                      onClick={() => startEditing(calculation)}
-                      variant="ghost"
-                      size="icon"
-                      className="w-8 h-8"
-                    >
-                      <Edit3 className="w-4 h-4" />
-                    </Button>
-                    <Button
-                      onClick={() => deleteCalculation(calculation.id)}
-                      variant="ghost"
-                      size="icon"
-                      className="w-8 h-8 text-red-600 hover:text-red-700"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </Button>
-                  </div>
+                                     <div className="flex space-x-1">
+                     <MagneticEffect>
+                       <Button
+                         onClick={() => startEditing(calculation)}
+                         variant="ghost"
+                         size="icon"
+                         className="w-8 h-8"
+                       >
+                         <Edit3 className="w-4 h-4" />
+                       </Button>
+                     </MagneticEffect>
+                     <MagneticEffect>
+                       <Button
+                         onClick={() => deleteCalculation(calculation.id)}
+                         variant="ghost"
+                         size="icon"
+                         className="w-8 h-8 text-red-600 hover:text-red-700"
+                       >
+                         <Trash2 className="w-4 h-4" />
+                       </Button>
+                     </MagneticEffect>
+                   </div>
                 </div>
 
                 {/* Image preview */}
@@ -184,16 +201,20 @@ export function CalculationHistory({ calculations }: CalculationHistoryProps) {
                       className="w-full p-2 border border-engineering-200 rounded text-sm resize-none"
                       rows={3}
                     />
-                    <div className="flex space-x-2">
-                      <Button onClick={saveEdit} variant="engineering" size="sm">
-                        <Check className="w-4 h-4 mr-1" />
-                        Save
-                      </Button>
-                      <Button onClick={cancelEdit} variant="outline" size="sm">
-                        <X className="w-4 h-4 mr-1" />
-                        Cancel
-                      </Button>
-                    </div>
+                                         <div className="flex space-x-2">
+                       <MagneticEffect>
+                         <Button onClick={saveEdit} variant="engineering" size="sm">
+                           <Check className="w-4 h-4 mr-1" />
+                           Save
+                         </Button>
+                       </MagneticEffect>
+                       <MagneticEffect>
+                         <Button onClick={cancelEdit} variant="outline" size="sm">
+                           <X className="w-4 h-4 mr-1" />
+                           Cancel
+                         </Button>
+                       </MagneticEffect>
+                     </div>
                   </div>
                 ) : (
                   calculation.notes && (
@@ -203,10 +224,11 @@ export function CalculationHistory({ calculations }: CalculationHistoryProps) {
                     </div>
                   )
                 )}
-              </div>
-            </div>
-          ))}
-        </div>
+                                               </div>
+              </SlideIn>
+            ))}
+          </div>
+        </StaggerContainer>
       </div>
     </div>
   )

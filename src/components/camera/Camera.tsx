@@ -3,6 +3,10 @@
 import React, { useState, useRef, useCallback } from 'react'
 import { Camera as CameraIcon, FlashOff, RotateCcw, Check, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { FadeIn } from '@/components/ui/fade-in'
+import { SlideIn } from '@/components/ui/slide-in'
+import { ScaleIn } from '@/components/ui/scale-in'
+import { MagneticEffect } from '@/components/ui/magnetic-effect'
 import { useCalculationStore } from '@/lib/store'
 import { ocrService } from '@/lib/ocr'
 
@@ -126,23 +130,33 @@ export function Camera() {
   if (hasPermission === false) {
     return (
       <div className="flex flex-col items-center justify-center h-full p-6 text-center">
-        <CameraIcon className="w-16 h-16 text-engineering-400 mb-4" />
-        <h2 className="text-xl font-semibold text-engineering-900 mb-2">Camera Access Required</h2>
-        <p className="text-engineering-600 mb-6">
-          SnapCalc needs camera access to capture calculation images.
-        </p>
-        <div className="space-y-3 w-full max-w-xs">
-          <Button onClick={startCamera} variant="engineering" className="w-full">
-            Enable Camera
-          </Button>
-          <Button 
-            onClick={() => fileInputRef.current?.click()} 
-            variant="outline" 
-            className="w-full"
-          >
-            Upload Image Instead
-          </Button>
-        </div>
+        <ScaleIn delay={0.2}>
+          <CameraIcon className="w-16 h-16 text-engineering-400 mb-4" />
+        </ScaleIn>
+        <FadeIn delay={0.4} direction="up">
+          <h2 className="text-xl font-semibold text-engineering-900 mb-2">Camera Access Required</h2>
+        </FadeIn>
+        <FadeIn delay={0.6} direction="up">
+          <p className="text-engineering-600 mb-6">
+            SnapCalc needs camera access to capture calculation images.
+          </p>
+        </FadeIn>
+        <SlideIn delay={0.8} direction="up">
+          <div className="space-y-3 w-full max-w-xs">
+            <MagneticEffect>
+              <Button onClick={startCamera} variant="engineering" className="w-full">
+                Enable Camera
+              </Button>
+            </MagneticEffect>
+            <Button 
+              onClick={() => fileInputRef.current?.click()} 
+              variant="outline" 
+              className="w-full"
+            >
+              Upload Image Instead
+            </Button>
+          </div>
+        </SlideIn>
         <input
           ref={fileInputRef}
           type="file"
@@ -166,34 +180,40 @@ export function Camera() {
           <div className="absolute inset-0 scan-animation" />
         </div>
         
-        <div className="p-4 bg-white/90 backdrop-blur-sm">
-          <div className="flex space-x-3">
-            <Button 
-              onClick={retakePhoto} 
-              variant="outline" 
-              className="flex-1"
-              disabled={isProcessing}
-            >
-              <X className="w-4 h-4 mr-2" />
-              Retake
-            </Button>
-            <Button 
-              onClick={processImage} 
-              variant="engineering" 
-              className="flex-1"
-              disabled={isProcessing}
-            >
-              {isProcessing ? (
-                <>Processing...</>
-              ) : (
-                <>
-                  <Check className="w-4 h-4 mr-2" />
-                  Process
-                </>
-              )}
-            </Button>
+        <SlideIn direction="up" delay={0.3}>
+          <div className="p-4 bg-white/90 backdrop-blur-sm">
+            <div className="flex space-x-3">
+              <MagneticEffect>
+                <Button 
+                  onClick={retakePhoto} 
+                  variant="outline" 
+                  className="flex-1"
+                  disabled={isProcessing}
+                >
+                  <X className="w-4 h-4 mr-2" />
+                  Retake
+                </Button>
+              </MagneticEffect>
+              <MagneticEffect>
+                <Button 
+                  onClick={processImage} 
+                  variant="engineering" 
+                  className="flex-1"
+                  disabled={isProcessing}
+                >
+                  {isProcessing ? (
+                    <>Processing...</>
+                  ) : (
+                    <>
+                      <Check className="w-4 h-4 mr-2" />
+                      Process
+                    </>
+                  )}
+                </Button>
+              </MagneticEffect>
+            </div>
           </div>
-        </div>
+        </SlideIn>
       </div>
     )
   }
@@ -227,41 +247,51 @@ export function Camera() {
       </div>
 
       {/* Bottom controls */}
-      <div className="p-6 bg-white/90 backdrop-blur-sm">
-        <div className="flex items-center justify-center space-x-8">
-          <Button 
-            onClick={() => fileInputRef.current?.click()}
-            variant="ghost" 
-            size="icon"
-            className="w-12 h-12"
-          >
-            <RotateCcw className="w-6 h-6 text-engineering-600" />
-          </Button>
+      <SlideIn direction="up" delay={0.4}>
+        <div className="p-6 bg-white/90 backdrop-blur-sm">
+          <div className="flex items-center justify-center space-x-8">
+            <MagneticEffect>
+              <Button 
+                onClick={() => fileInputRef.current?.click()}
+                variant="ghost" 
+                size="icon"
+                className="w-12 h-12"
+              >
+                <RotateCcw className="w-6 h-6 text-engineering-600" />
+              </Button>
+            </MagneticEffect>
+            
+            <MagneticEffect strength={0.2}>
+              <ScaleIn delay={0.6}>
+                <Button
+                  onClick={capturePhoto}
+                  variant="engineering"
+                  size="icon"
+                  className="w-16 h-16 rounded-full hover:scale-110 transition-transform duration-200"
+                >
+                  <CameraIcon className="w-8 h-8" />
+                </Button>
+              </ScaleIn>
+            </MagneticEffect>
+            
+            <div className="w-12 h-12" /> {/* Spacer */}
+          </div>
           
-          <Button
-            onClick={capturePhoto}
-            variant="engineering"
-            size="icon"
-            className="w-16 h-16 rounded-full"
-          >
-            <CameraIcon className="w-8 h-8" />
-          </Button>
+                    <FadeIn delay={0.8} direction="up">
+            <p className="text-center text-sm text-engineering-600 mt-4">
+              Position calculator display within the frame
+            </p>
+          </FadeIn>
           
-          <div className="w-12 h-12" /> {/* Spacer */}
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            onChange={handleFileUpload}
+            className="hidden"
+          />
         </div>
-        
-        <p className="text-center text-sm text-engineering-600 mt-4">
-          Position calculator display within the frame
-        </p>
-        
-        <input
-          ref={fileInputRef}
-          type="file"
-          accept="image/*"
-          onChange={handleFileUpload}
-          className="hidden"
-        />
-      </div>
+      </SlideIn>
     </div>
   )
 }
