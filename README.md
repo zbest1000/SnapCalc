@@ -5,7 +5,7 @@
 ## 🚀 Features
 
 - **📸 Photo Capture**: Snap photos of calculations instantly with professional camera interface
-- **🤖 AI-Powered OCR**: Advanced text recognition using Tesseract.js for accurate calculation extraction
+- **🤖 AI-Powered OCR**: Hybrid OCR system with PaddleOCR and Tesseract.js for superior accuracy
 - **📱 Mobile-First PWA**: Progressive Web App optimized for mobile field work
 - **🔄 Real-time Processing**: Instant calculation verification and result computation
 - **📊 Smart History**: Searchable calculation history with notes and export capabilities
@@ -17,7 +17,7 @@
 - **Frontend**: Next.js 14, React 18, TypeScript
 - **Styling**: Tailwind CSS with custom engineering theme
 - **State Management**: Zustand with persistence
-- **OCR Engine**: Tesseract.js for client-side text recognition
+- **OCR Engine**: PaddleOCR + Tesseract.js hybrid system for optimal accuracy
 - **PWA**: next-pwa for offline capabilities
 - **Icons**: Lucide React
 - **UI Components**: Radix UI primitives
@@ -66,6 +66,24 @@ npm start
 
 ## 🔧 Configuration
 
+### PaddleOCR Setup (Optional but Recommended)
+
+For enhanced OCR accuracy, set up PaddleOCR models:
+
+```bash
+# Create models directory
+mkdir -p public/models public/onnx
+
+# Download PaddleOCR models (see docs/PADDLEOCR_SETUP.md for details)
+# - Detection model (~2.3MB)
+# - Recognition model (~8.5MB) 
+# - Dictionary file (~40KB)
+```
+
+**Note**: Without PaddleOCR models, the app automatically uses Tesseract.js as the primary OCR engine.
+
+For complete setup instructions, see [PaddleOCR Setup Guide](docs/PADDLEOCR_SETUP.md).
+
 ### Environment Variables
 
 Copy `.env.example` to `.env.local` and configure:
@@ -104,10 +122,11 @@ src/
 ## 🎯 Engineering Features
 
 ### OCR Processing
-- Advanced text recognition optimized for calculator displays
-- Mathematical expression parsing and validation
-- Confidence scoring for accuracy assessment
-- Support for various calculator formats and fonts
+- **PaddleOCR Integration**: Superior accuracy for mathematical text recognition
+- **Hybrid System**: Automatic fallback between PaddleOCR and Tesseract.js
+- **Mathematical Expression Parsing**: Enhanced pattern recognition for calculations
+- **Confidence Scoring**: Intelligent engine selection based on accuracy
+- **Support for Multiple Formats**: Various calculator displays and handwriting
 
 ### Data Management
 - Local storage with automatic persistence

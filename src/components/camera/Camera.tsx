@@ -8,7 +8,7 @@ import { SlideIn } from '@/components/ui/slide-in'
 import { ScaleIn } from '@/components/ui/scale-in'
 import { MagneticEffect } from '@/components/ui/magnetic-effect'
 import { useCalculationStore } from '@/lib/store'
-import { ocrService } from '@/lib/ocr'
+import { hybridOCRService } from '@/lib/hybrid-ocr'
 
 export function Camera() {
   const [isCapturing, setIsCapturing] = useState(false)
@@ -76,7 +76,7 @@ export function Camera() {
     setProcessing(true)
 
     try {
-      const result = await ocrService.processImage(capturedImage)
+      const result = await hybridOCRService.processImage(capturedImage)
       
       addCalculation({
         image: capturedImage,
