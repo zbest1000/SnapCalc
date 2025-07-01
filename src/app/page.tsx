@@ -6,10 +6,11 @@ import { CalculationHistory } from '@/components/calculation/CalculationHistory'
 import { Header } from '@/components/layout/Header'
 import { BottomNav } from '@/components/layout/BottomNav'
 import { WelcomeScreen } from '@/components/welcome/WelcomeScreen'
+import { Whiteboard } from '@/components/whiteboard/Whiteboard'
 import { useCalculationStore } from '@/lib/store'
 
 export default function HomePage() {
-  const [currentView, setCurrentView] = useState<'welcome' | 'camera' | 'history'>('welcome')
+  const [currentView, setCurrentView] = useState<'welcome' | 'camera' | 'history' | 'whiteboard'>('welcome')
   const { calculations } = useCalculationStore()
 
   const handleGetStarted = () => {
@@ -24,6 +25,8 @@ export default function HomePage() {
         return <Camera />
       case 'history':
         return <CalculationHistory calculations={calculations} />
+      case 'whiteboard':
+        return <Whiteboard />
       default:
         return <WelcomeScreen onGetStarted={handleGetStarted} />
     }
