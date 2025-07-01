@@ -1,0 +1,52 @@
+{
+  "name": "snapcalc",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "type-check": "tsc --noEmit",
+    "setup": "./scripts/setup.sh"
+  },
+  "dependencies": {
+    "@next/bundle-analyzer": "^14.0.0",
+    "@prisma/client": "^5.7.0",
+    "@radix-ui/react-dialog": "^1.0.5",
+    "@radix-ui/react-dropdown-menu": "^2.0.6",
+    "@radix-ui/react-slot": "^1.0.2",
+    "@radix-ui/react-toast": "^1.1.5",
+    "@tensorflow/tfjs": "^4.15.0",
+    "@tensorflow/tfjs-node": "^4.15.0",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.0.0",
+    "framer-motion": "^10.16.0",
+    "lucide-react": "^0.294.0",
+    "next": "14.0.0",
+    "next-pwa": "^5.6.0",
+    "ocrad": "^0.2.0",
+    "onnxruntime-web": "^1.16.3",
+    "react": "^18.2.0",
+    "react-camera-pro": "^1.4.0",
+    "react-dom": "^18.2.0",
+    "react-dropzone": "^14.2.3",
+    "react-hook-form": "^7.48.0",
+    "tailwind-merge": "^2.0.0",
+    "tailwindcss-animate": "^1.0.7",
+    "tesseract.js": "^5.0.4",
+    "zustand": "^4.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.8.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "autoprefixer": "^10.4.0",
+    "eslint": "^8.0.0",
+    "eslint-config-next": "14.0.0",
+    "postcss": "^8.4.0",
+    "prisma": "^5.7.0",
+    "tailwindcss": "^3.3.0",
+    "typescript": "^5.2.0"
+  }
+}
