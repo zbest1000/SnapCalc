@@ -1,5 +1,5 @@
 import React from 'react'
-import { Camera, Calculator, Zap, CheckCircle } from 'lucide-react'
+import { Camera, Calculator, Zap, CheckCircle, Bot } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { FadeIn } from '@/components/ui/fade-in'
 import { SlideIn } from '@/components/ui/slide-in'
@@ -10,9 +10,10 @@ import { MagneticEffect } from '@/components/ui/magnetic-effect'
 
 interface WelcomeScreenProps {
   onGetStarted: () => void
+  onAIAssistant?: () => void
 }
 
-export function WelcomeScreen({ onGetStarted }: WelcomeScreenProps) {
+export function WelcomeScreen({ onGetStarted, onAIAssistant }: WelcomeScreenProps) {
   const features = [
     {
       icon: Camera,
@@ -101,8 +102,8 @@ export function WelcomeScreen({ onGetStarted }: WelcomeScreenProps) {
         </SlideIn>
       </div>
 
-      {/* CTA Button */}
-      <div className="p-6">
+      {/* CTA Buttons */}
+      <div className="p-6 space-y-3">
         <MagneticEffect className="w-full">
           <FadeIn delay={2.0} direction="up">
             <Button 
@@ -111,10 +112,27 @@ export function WelcomeScreen({ onGetStarted }: WelcomeScreenProps) {
               size="lg"
               className="w-full text-lg font-semibold hover:scale-105 transition-transform duration-200"
             >
-              Get Started
+              Get Started with Camera
             </Button>
           </FadeIn>
         </MagneticEffect>
+        
+        {onAIAssistant && (
+          <MagneticEffect className="w-full">
+            <FadeIn delay={2.1} direction="up">
+              <Button 
+                onClick={onAIAssistant}
+                variant="outline"
+                size="lg"
+                className="w-full text-lg font-semibold hover:scale-105 transition-transform duration-200 flex items-center justify-center space-x-2"
+              >
+                <Bot className="w-5 h-5" />
+                <span>Try AI Engineering Assistant</span>
+              </Button>
+            </FadeIn>
+          </MagneticEffect>
+        )}
+        
         <FadeIn delay={2.2} direction="up">
           <p className="text-center text-xs text-engineering-600 mt-2">
             No account required • Works offline

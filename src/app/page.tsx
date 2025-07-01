@@ -7,26 +7,46 @@ import { Header } from '@/components/layout/Header'
 import { BottomNav } from '@/components/layout/BottomNav'
 import { WelcomeScreen } from '@/components/welcome/WelcomeScreen'
 import { Whiteboard } from '@/components/whiteboard/Whiteboard'
+import { AIAssistant } from '@/components/ai-assistant/AIAssistant'
 import { useCalculationStore } from '@/lib/store'
 
 export default function HomePage() {
-  const [currentView, setCurrentView] = useState<'welcome' | 'camera' | 'history' | 'whiteboard'>('welcome')
-  const { calculations } = useCalculationStore()
+  const [currentView, setCurrentView] = useState<'welcome' | 'camera' | 'history' | 'whiteboard' | 'ai-assistant'>('welcome')
+  const { calculations, addCalculation } = useCalculationStore()
 
   const handleGetStarted = () => {
     setCurrentView('camera')
   }
 
+  const handleAIAssistant = () => {
+    setCurrentView('ai-assistant')
+  }
+
+  const handleCalculationSave = (calculation: any) => {
+    addCalculation({
+      image: '', // No image for AI calculations
+      ocrText: `AI Calculation: ${calculation.formula}`,
+      result: calculation.result,
+      expression: `${calculation.formula} = ${calculation.result} ${calculation.unit}`,
+      confidence: 0.95,
+      verified: true,
+      tags: ['ai-calculation'],
+      notes: `Calculated using AI Assistant. Inputs: ${JSON.stringify(calculation.inputs)}`
+    })
+  }
+
   const renderContent = () => {
     switch (currentView) {
       case 'welcome':
-        return <WelcomeScreen onGetStarted={handleGetStarted} />
+        return <WelcomeScreen onGetStarted={handleGetStarted} onAIAssistant={handleAIAssistant} />
       case 'camera':
         return <Camera />
       case 'history':
         return <CalculationHistory calculations={calculations} />
       case 'whiteboard':
         return <Whiteboard />
+      case 'ai-assistant':
+        return <AIAssistant onCalculationSave={handleCalculationSave} />
       default:
         return <WelcomeScreen onGetStarted={handleGetStarted} />
     }
