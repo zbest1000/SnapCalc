@@ -8,9 +8,11 @@
     "start": "next start",
     "lint": "next lint",
     "type-check": "tsc --noEmit",
-    "setup": "./scripts/setup.sh"
+    "setup": "./scripts/setup.sh",
+    "mcp-server": "node dist/mcp-server.js"
   },
   "dependencies": {
+    "@modelcontextprotocol/sdk": "^0.5.0",
     "@next/bundle-analyzer": "^14.0.0",
     "@prisma/client": "^5.7.0",
     "@radix-ui/react-dialog": "^1.0.5",
@@ -44,6 +46,7 @@
     "react-hot-toast": "^2.5.2",
     "react-konva": "^19.0.6",
     "react-pdf": "^10.0.1",
+    "sharp": "^0.33.0",
     "tailwind-merge": "^2.0.0",
     "tailwindcss-animate": "^1.0.7",
     "tesseract.js": "^5.0.4",
