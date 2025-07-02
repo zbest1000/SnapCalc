@@ -1,0 +1,104 @@
+{
+  "mcpServers": {
+    "snapcalc-ocr": {
+      "command": "node",
+      "args": ["mcp-server.js"],
+      "description": "SnapCalc OCR Server - Provides advanced OCR capabilities for calculator displays and mathematical expressions using PaddleOCR and Tesseract.js",
+      "environment": {
+        "NODE_ENV": "production"
+      }
+    }
+  },
+  "tools": {
+    "ocr_analyze_image": {
+      "description": "Analyze images using OCR to extract text and mathematical expressions",
+      "capabilities": [
+        "Image file processing",
+        "Base64 image data processing", 
+        "Multiple OCR engines (PaddleOCR, Tesseract, Hybrid)",
+        "Mathematical expression extraction and evaluation",
+        "Bounding box detection"
+      ]
+    },
+    "ocr_extract_calculations": {
+      "description": "Extract and evaluate mathematical expressions from text",
+      "capabilities": [
+        "Mathematical expression parsing",
+        "Automatic calculation evaluation",
+        "Multiple operation types support",
+        "Expression normalization"
+      ]
+    },
+    "ocr_process_calculator_display": {
+      "description": "Specialized processing for calculator display images",
+      "capabilities": [
+        "Calculator-specific image preprocessing",
+        "Support for different calculator types",
+        "Enhanced accuracy for calculator displays",
+        "Error state detection"
+      ]
+    },
+    "ocr_batch_process": {
+      "description": "Process multiple images in batch for OCR analysis",
+      "capabilities": [
+        "Bulk image processing",
+        "Parallel processing support",
+        "Error handling per image",
+        "Batch result aggregation"
+      ]
+    }
+  },
+  "usage_examples": {
+    "basic_ocr": {
+      "tool": "ocr_analyze_image",
+      "description": "Basic OCR analysis of an image",
+      "example": {
+        "image_path": "./calculator_display.jpg",
+        "engine": "hybrid",
+        "extract_calculations": true
+      }
+    },
+    "calculator_processing": {
+      "tool": "ocr_process_calculator_display", 
+      "description": "Process a scientific calculator display",
+      "example": {
+        "image_path": "./scientific_calc.png",
+        "calculator_type": "scientific"
+      }
+    },
+    "text_calculation_extraction": {
+      "tool": "ocr_extract_calculations",
+      "description": "Extract calculations from OCR text",
+      "example": {
+        "text": "The calculation shows 2 + 3 = 5 and 10 × 4 = 40",
+        "evaluate": true
+      }
+    },
+    "batch_processing": {
+      "tool": "ocr_batch_process",
+      "description": "Process multiple calculator images",
+      "example": {
+        "image_paths": ["calc1.jpg", "calc2.png", "calc3.jpeg"],
+        "engine": "paddleocr",
+        "extract_calculations": true
+      }
+    }
+  },
+  "supported_formats": {
+    "input_images": ["JPEG", "PNG", "GIF", "WebP"],
+    "calculator_types": ["basic", "scientific", "graphing", "financial"],
+    "ocr_engines": ["hybrid", "paddleocr", "tesseract"],
+    "output_format": "JSON"
+  },
+  "requirements": {
+    "node_version": ">=16.0.0",
+    "dependencies": [
+      "@modelcontextprotocol/sdk",
+      "sharp"
+    ],
+    "optional_dependencies": [
+      "onnxruntime-web",
+      "tesseract.js"
+    ]
+  }
+}
